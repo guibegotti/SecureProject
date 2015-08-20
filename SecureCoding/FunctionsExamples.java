@@ -13,17 +13,17 @@ public class FunctionsExamples
 	 */
 	 
 	private static String IMAGE_DIRECTORY = localFile.getAbsolutePath();
-  	public ParcelFileDescriptor openFile(Uri paramUri, String paramString)
-    	throws FileNotFoundException 
+	public ParcelFileDescriptor openFile(Uri paramUri, String paramString)
+	throws FileNotFoundException 
 		{
-    		String decodedUriString = Uri.decode(paramUri.toString());
-    		File file = new File(IMAGE_DIRECTORY, Uri.parse(decodedUriString).getLastPathSegment());
-    		if (file.getCanonicalPath().indexOf(localFile.getCanonicalPath()) != 0) 
+		String decodedUriString = Uri.decode(paramUri.toString());
+		File file = new File(IMAGE_DIRECTORY, Uri.parse(decodedUriString).getLastPathSegment());
+		if (file.getCanonicalPath().indexOf(localFile.getCanonicalPath()) != 0) 
 			{
-      			throw new IllegalArgumentException();
-    		}
-    		return ParcelFileDescriptor.open(file, ParcelFileDescriptor.MODE_READ_ONLY);
-  		}
+			throw new IllegalArgumentException();
+		}
+		return ParcelFileDescriptor.open(file, ParcelFileDescriptor.MODE_READ_ONLY);
+	}
 
 	/**
 	 * Uses the openFileOutput() method to create a file in an application data directory 
@@ -111,5 +111,30 @@ public class FunctionsExamples
 	  }
 	  Arrays.fill(password, ' ');
 	}
-		
+	
+	/**
+	 * If the intent is only broadcast/received in the same application, 
+	 * LocalBroadcastManager can be used which reduces the risk of leaking sensitive information.
+	 */
+	 
+  	public final void onReceive(Context context, Intent intent)
+  	{
+	        intent = new Intent("my-sensitive-event");
+	    	if (intent != null && intent.getAction() != null) 
+	    	{
+	      		String s = intent.getAction();
+	      		if (s.equals("com.sample.action.server_running")
+	      		{
+	        		String ip = intent.getStringExtra("local_ip");
+	        		String pwd = intent.getStringExtra("code");
+	        		String port = intent.getIntExtra("port", 8888);
+	        		boolean status = intent.getBooleanExtra("connected", false);
+				intent.putExtra("event", "this is a test event");
+				LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
+	      		}
+	    	}
+  	}
+	
+	
+	
 }
