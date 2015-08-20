@@ -25,7 +25,8 @@
     android:versionCode="1"
     android:versionName="1.0" >
 
-	<provider android:name=".content.AccountProvider" android:exported="false" android:authorities="jp.co.vulnerable.accountprovider" />
+    <provider android:name=".content.AccountProvider" android:exported="false" android:authorities="jp.co.vulnerable.accountprovider" />
+    <uses-sdk android:minSdkVersion="17" />
     <uses-permission android:name="android.permission.READ_CONTACTS"/>
     <permission android:name="android"></permission>
 
