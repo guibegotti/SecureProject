@@ -1,0 +1,2 @@
+A pasta "SimpleCrypto" é um projeto Eclipse.
+Copie toda a pasta no seu diretório workspace.
