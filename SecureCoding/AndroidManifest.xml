@@ -25,10 +25,8 @@
     android:versionCode="1"
     android:versionName="1.0" >
 
-    <!-- BEGIN_INCLUDE(contacts_permission) -->
+	<provider android:name=".content.AccountProvider" android:exported="false" android:authorities="jp.co.vulnerable.accountprovider" />
     <uses-permission android:name="android.permission.READ_CONTACTS"/>
-    <!-- END_INCLUDE(contacts_permission) -->
-    <!-- Min/target SDK versions (<uses-sdk>) managed by build.gradle -->
     <permission android:name="android"></permission>
 
     <application
@@ -43,13 +41,6 @@
             <meta-data
                 android:name="android.app.searchable"
                 android:resource="@xml/searchable" />
-            <intent-filter>
-                <action android:name="android.intent.action.SEARCH" />
-            </intent-filter>
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
     </application>
 </manifest>
